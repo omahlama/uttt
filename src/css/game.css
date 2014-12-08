@@ -1,0 +1,57 @@
+* {
+	box-sizing: border-box;
+}
+
+.game {
+	width: 900px;
+
+}
+
+.board {
+	position: relative;
+	display: inline-block;
+	width: 240px;
+	height: 240px;
+	margin: 20px;
+}
+
+.board-active {
+	box-shadow: 0 0 3px 3px lime;
+}
+
+.board-win-x {
+	opacity: 0.5;
+}
+
+.board-win-x:after,.board-win-y:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	opacity: 0.5;
+}
+.board-win-x:after {
+	background-color: red;
+}
+.board-win-y:after {
+	background-color: blue;
+}
+
+.cell {
+	float: left;
+	width: 80px;
+	height: 80px;
+	background: white;
+	border: 3px solid #999;
+	margin: 0;
+}
+
+.state-x {
+	background: red;
+}
+
+.state-y {
+	background: blue;
+}
