@@ -45,6 +45,7 @@ var GameBoard = React.createClass({
 
     return (
         <div className="game">
+          <h1>Ultimate Tic Tac Toe</h1>
           { gameOver }
       		{
 		      	game.boards.map(function(board, boardIndex) {

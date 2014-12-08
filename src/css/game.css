@@ -2,17 +2,25 @@
 	box-sizing: border-box;
 }
 
+h1 {
+	text-align: center;
+	color: #777;
+	font-family: Verdana;
+	font-size: 40px;
+	text-transform: uppercase;
+}
+
 .game {
-	width: 900px;
+	width: 600px;
 	margin: 0 auto;
 }
 
 .board {
 	position: relative;
 	display: inline-block;
-	width: 240px;
-	height: 240px;
-	margin: 20px;
+	width: 180px;
+	height: 180px;
+	margin: 10px;
 }
 
 .board-active {
@@ -44,8 +52,8 @@
 
 .cell {
 	float: left;
-	width: 80px;
-	height: 80px;
+	width: 60px;
+	height: 60px;
 	background: white;
 	border: 1px solid #999;
 	margin: 0;
