@@ -22,11 +22,20 @@ var GameBoard = React.createClass({
   	function classForBoard(boardIndex) {
   		return "board" + 
   			(game.active === boardIndex ? " board-active" : "") +
-  			(game.wins[boardIndex] !==  0 ? " board-win-" + (game.wins[boardIndex] === 1 ? "x" : "y") : "")
+  			(game.wins[boardIndex] !== 0 ? " board-win-" + (game.wins[boardIndex] === 1 ? "x" : (game.wins[boardIndex] === -1 ? "y" : "tie")) : "")
   	}
 
+    var gameOver = ""
+    if(game.winner !== null) {
+      gameOver = 
+        <div className="gameover">
+        <span>{ game.winner === 1 ? "Red wins" : (game.winner === -1 ? "Blue wins": "Tie") }</span>
+      </div>
+    }
+
     return (
-      	<div className="game">
+        <div className="game">
+          { gameOver }
       		{
 		      	game.boards.map(function(board, boardIndex) {
 		      	return (

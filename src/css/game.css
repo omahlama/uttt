@@ -4,7 +4,7 @@
 
 .game {
 	width: 900px;
-
+	margin: 0 auto;
 }
 
 .board {
@@ -23,7 +23,7 @@
 	opacity: 0.5;
 }
 
-.board-win-x:after,.board-win-y:after {
+.board-win-x:after,.board-win-y:after, .board-win-tie:after {
 	content: '';
 	position: absolute;
 	left: 0;
@@ -37,6 +37,9 @@
 }
 .board-win-y:after {
 	background-color: blue;
+}
+.board-win-tie:after {
+	background-color: black;
 }
 
 .cell {
@@ -54,4 +57,26 @@
 
 .state-y {
 	background: blue;
+}
+
+.gameover {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,0.8);
+	z-index: 1;
+	white-space: nowrap;
+}
+
+.gameover span {
+	color: white;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-family: Verdana;
+	font-size: 200px;
+	text-transform: uppercase;
 }
