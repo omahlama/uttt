@@ -1,4 +1,5 @@
 var uttt = require('./uttt.js')
+var winsAi = require('./wins-ai.js')
 var React = require('react')
 
 var GameBoard = React.createClass({
@@ -8,7 +9,16 @@ var GameBoard = React.createClass({
   play: function(boardIndex, cellIndex) {
   	var nextState = uttt.play(this.state.game, this.state.game.turn, boardIndex, cellIndex)
   	if(nextState) {
-    	this.setState({game: nextState})  		
+      this.setState({game: nextState})      
+      if(nextState.turn === -1) {
+        setTimeout((function() {
+          aiMove = winsAi.winsAi(nextState)
+          nextState = uttt.play(nextState, nextState.turn, aiMove[0], aiMove[1])
+          if(nextState) {
+            this.setState({game: nextState})      
+          }          
+        }).bind(this), 0)
+      }
   	}
   },
   render: function() {
@@ -50,6 +60,7 @@ var GameBoard = React.createClass({
 		      	)
 		      })
 		    }
+        { JSON.stringify(uttt.availableMoves(game))}
 	  	</div>
     );
   }	

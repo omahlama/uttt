@@ -54,7 +54,7 @@ function gameWinner(wins) {
 		return state
 	}, {x:0, y:0, full: 0})
 
-	if(winCount.x + winCount.y + winCount.full === 9) {
+	if(winCount.x === 5 || winCount.y === 5 || winCount.x + winCount.y + winCount.full === 9) {
 		return winCount.x > winCount.y || winCount.x === 5 ? 1 : (winCount.x < winCount || winCount.y === 5 ? -1 : 0)
 	}
 	return null;
@@ -76,5 +76,35 @@ function play(game, player, board, place) {
 	}
 }
 
+function emptyCells(board) {
+	var arr = []
+	for(var i=0;i<board.length; i++) {
+		if(board[i] === 0) {	
+			arr.push(i)
+		}
+
+	}
+	return arr;
+}
+
+function pairs(val, arr) {
+	return arr.map(function(v) { return [val, v] })
+}
+
+function availableMoves(game) {
+	var moves = []
+	if(game.active >= 0) {
+		Array.prototype.push.apply(moves, pairs(game.active, emptyCells(game.boards[game.active])))
+	} else {
+		for(var i=0;i<9;i++) {
+			if(game.wins[i] === 0) {
+				Array.prototype.push.apply(moves, pairs(i, emptyCells(game.boards[i])))
+			}
+		}
+	}
+	return moves
+}
+
 exports.game = Game
 exports.play = play
+exports.availableMoves = availableMoves
