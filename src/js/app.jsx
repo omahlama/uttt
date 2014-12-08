@@ -60,7 +60,6 @@ var GameBoard = React.createClass({
 		      	)
 		      })
 		    }
-        { JSON.stringify(uttt.availableMoves(game))}
 	  	</div>
     );
   }	
