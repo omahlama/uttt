@@ -4,19 +4,19 @@ var React = require('react')
 
 var GameBoard = React.createClass({
   getInitialState: function() {
-    return { game: uttt.game() }
+    return { game: uttt.game(), loading: false }
   },
   play: function(boardIndex, cellIndex) {
     if(this.state.game.turn === 1) {
       var nextState = uttt.play(this.state.game, this.state.game.turn, boardIndex, cellIndex)
       if(nextState) {
-        this.setState({game: nextState})      
+        this.setState({game: nextState, loading: true})      
         if(nextState.turn === -1) {
           setTimeout((function() {
             winsAi.winsAi(nextState, (function(aiMove) {
               nextState = uttt.play(nextState, nextState.turn, aiMove[0], aiMove[1])
               if(nextState) {
-                this.setState({game: nextState})      
+                this.setState({game: nextState, loading: false})      
               }          
 
             }).bind(this))
@@ -48,7 +48,7 @@ var GameBoard = React.createClass({
     }
 
     return (
-        <div className="game">
+        <div className={ this.state.loading ? 'game loading' : 'game'}>
           <h1>Ultimate Tic Tac Toe</h1>
           { gameOver }
       		{

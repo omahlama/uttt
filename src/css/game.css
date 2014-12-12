@@ -13,6 +13,17 @@ h1 {
 .game {
 	width: 600px;
 	margin: 0 auto;
+	position: relative;
+}
+
+.loading:after {
+	content: '';
+	background: url("../../img/loading.gif");
+	width: 32px;
+	height: 32px;
+	position: absolute;
+	top: 42px;
+	right: 0;
 }
 
 .board {

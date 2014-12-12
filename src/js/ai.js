@@ -25,7 +25,6 @@ function ai(heuristic, searchDepth) {
 					bestMove = move
 				}
 				queue--;
-				index++
 				this.free = true
 				if(index < moves.length) {
 					doWork()
@@ -46,6 +45,7 @@ function ai(heuristic, searchDepth) {
 				if(worker.free) {
 					worker.free = false;
 					worker.postMessage([nextGame, searchDepth-1, moves[index], heuristic.toString()])
+					index++
 				} 
 			}
 		}
