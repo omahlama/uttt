@@ -47,27 +47,34 @@ function calculateWin(board) {
 }
 
 function gameWinner(wins) {
-	var winCount = wins.reduce(function(state,win) { 
-		if(win === 1) { state.x +=1 }
-		if(win === -1) { state.y +=1 }
-		if(win === null) { state.full +=1 }
-		return state
-	}, {x:0, y:0, full: 0})
+	var x = 0, y = 0, full = 0;
+	for(var i=0; i<9; i++) {
+		var win = wins[i]
+		if(win === 1) { x++ }
+		if(win === -1) { y++ }
+		if(win === null) { full++ }
+	}
 
-	if(winCount.x === 5 || winCount.y === 5 || winCount.x + winCount.y + winCount.full === 9) {
-		return winCount.x > winCount.y || winCount.x === 5 ? 1 : (winCount.x < winCount || winCount.y === 5 ? -1 : 0)
+	if(x === 5 || y === 5 || x + y + full === 9) {
+		return x > y || x === 5 ? 1 : (x < y || y === 5 ? -1 : 0)
 	}
 	return null;
 }
 
 function applyMove(game, player, board, place) {
-	var g = clone(game)
-	g.boards[board][place] = player
-	g.wins[board] = calculateWin(g.boards[board])
-	g.active = g.wins[place] === 0 ? place : -1
-	g.turn = -1 * g.turn
-	g.winner = gameWinner(g.wins)
-	return g
+	var boards = game.boards.slice(0)
+	boards[board] = boards[board].slice()
+	boards[board][place] = player
+	wins = game.wins.slice(0)
+	wins[board] = calculateWin(boards[board])
+
+	return {
+		boards: boards,
+		wins: wins,
+		active: wins[place] === 0 ? place : -1,
+		turn: -1 * game.turn,
+		winner: gameWinner(wins)
+	}
 }
 
 function play(game, player, board, place) {
@@ -88,7 +95,12 @@ function emptyCells(board) {
 }
 
 function pairs(val, arr) {
-	return arr.map(function(v) { return [val, v] })
+	var len = arr.length
+	var ret = new Array(len)
+	for(var i = 0; i < len; i++) {
+		ret = [val, arr[i]]
+	}
+	return ret
 }
 
 function availableMoves(game) {

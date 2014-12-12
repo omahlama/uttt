@@ -7,19 +7,21 @@ var GameBoard = React.createClass({
     return { game: uttt.game() }
   },
   play: function(boardIndex, cellIndex) {
-  	var nextState = uttt.play(this.state.game, this.state.game.turn, boardIndex, cellIndex)
-  	if(nextState) {
-      this.setState({game: nextState})      
-      if(nextState.turn === -1) {
-        setTimeout((function() {
-          aiMove = winsAi.winsAi(nextState)
-          nextState = uttt.play(nextState, nextState.turn, aiMove[0], aiMove[1])
-          if(nextState) {
-            this.setState({game: nextState})      
-          }          
-        }).bind(this), 0)
+    if(this.state.game.turn === 1) {
+      var nextState = uttt.play(this.state.game, this.state.game.turn, boardIndex, cellIndex)
+      if(nextState) {
+        this.setState({game: nextState})      
+        if(nextState.turn === -1) {
+          setTimeout((function() {
+            aiMove = winsAi.winsAi(nextState)
+            nextState = uttt.play(nextState, nextState.turn, aiMove[0], aiMove[1])
+            if(nextState) {
+              this.setState({game: nextState})      
+            }          
+          }).bind(this), 0)
+        }
       }
-  	}
+    }
   },
   render: function() {
   	var game = this.state.game
