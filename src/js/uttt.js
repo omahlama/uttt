@@ -98,7 +98,7 @@ function pairs(val, arr) {
 	var len = arr.length
 	var ret = new Array(len)
 	for(var i = 0; i < len; i++) {
-		ret = [val, arr[i]]
+		ret[i] = [val, arr[i]]
 	}
 	return ret
 }

@@ -13,11 +13,13 @@ var GameBoard = React.createClass({
         this.setState({game: nextState})      
         if(nextState.turn === -1) {
           setTimeout((function() {
-            aiMove = winsAi.winsAi(nextState)
-            nextState = uttt.play(nextState, nextState.turn, aiMove[0], aiMove[1])
-            if(nextState) {
-              this.setState({game: nextState})      
-            }          
+            winsAi.winsAi(nextState, (function(aiMove) {
+              nextState = uttt.play(nextState, nextState.turn, aiMove[0], aiMove[1])
+              if(nextState) {
+                this.setState({game: nextState})      
+              }          
+
+            }).bind(this))
           }).bind(this), 0)
         }
       }

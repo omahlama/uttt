@@ -1,33 +1,45 @@
 var uttt = require("./uttt.js")
+var SimpleWorker = require("../lib/simple-worker.js").SimpleWorker
 
 function ai(heuristic, searchDepth) {
-	return function selectMove(game) {
-		return doSelectMove(game, searchDepth)[1]
+
+
+	return function selectMove(game, cb) {
+		asyncSelectMove(game, searchDepth, cb)
 	}
 
-	function doSelectMove(game, depth) {
-		if(depth === 0) {
-			return [heuristic(game), null]
-		} else {
-			var moves = uttt.availableMoves(game)
-			var bestValue = game.turn === 1 ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY
-			var bestMove, move, val
-			for(var i=0; i<moves.length; i++) {
-				move = moves[i]
-				if(game.winner) { 
-					val = game.turn * Math.Infinity
-				} else {
-					val = doSelectMove(uttt.play(game, game.turn, move[0], move[1]), depth-1)[0]
-				}
-				if(game.turn === 1 && val > bestValue || game.turn === -1 && val < bestValue) {
-					bestValue = val
-					bestMove = move
-				} else if(!bestMove) {
-					bestMove = move
-				}
+	function asyncSelectMove(game, searchDepth, cb) {
+		var moves = uttt.availableMoves(game)
+		var bestValue = game.turn === 1 ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY
+		var bestMove, queue = moves.length, index = 0
+		
+		var worker = new Worker("src/worker.js")
+		worker.onmessage = function(e) {
+			var res = e.data
+		  	var val = res[0], move = res[1]
+			if(game.turn === 1 && val > bestValue || game.turn === -1 && val < bestValue) {
+				bestValue = val
+				bestMove = move
+			} else if(!bestMove) {
+				bestMove = move
 			}
-			return [bestValue, bestMove]
+			queue--;
+			index++
+			if(index < moves.length) {
+				doWork()
+			}
+			if(queue === 0) 
+			{
+				cb(bestMove)
+			}			
 		}
+
+		function doWork() {
+			var nextGame = uttt.play(game, game.turn, moves[index][0], moves[index][1])
+			worker.postMessage([nextGame, searchDepth-1, moves[index], heuristic.toString()])
+		}
+
+		doWork();
 	}
 }
 

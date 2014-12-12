@@ -8,6 +8,7 @@ var source = require('vinyl-source-stream');
 // Define some paths.
 var paths = {
   app_js: ['./src/js/app.jsx'],
+  app_worker: ['./src/js/worker.js'],
   js: ['src/js/*.js']
 };
  
@@ -26,6 +27,12 @@ gulp.task('js', ['clean'], function() {
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(gulp.dest('./src/'));
+
+  browserify(paths.app_worker)
+    .bundle()
+    .pipe(source('worker.js'))
+    .pipe(gulp.dest('./src/'));
+
 });
  
 // Rerun tasks whenever a file changes.
