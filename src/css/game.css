@@ -1,101 +1,106 @@
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 h1 {
-	text-align: center;
-	color: #777;
-	font-family: Verdana;
-	font-size: 40px;
-	text-transform: uppercase;
+  text-align: center;
+  color: #777;
+  font-family: Verdana;
+  font-size: 6vmin;
+  margin: 0;
+  text-transform: uppercase;
 }
 
 .game {
-	width: 600px;
-	margin: 0 auto;
-	position: relative;
+  width: 90vmin;
+  margin: 0 auto;
+  position: relative;
 }
 
 .loading:after {
-	content: '';
-	background: url("../../img/loading.gif");
-	width: 32px;
-	height: 32px;
-	position: absolute;
-	top: 42px;
-	right: 0;
+  content: '';
+  background: url("../../img/loading.gif");
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 42px;
+  right: 0;
 }
 
 .board {
-	position: relative;
-	display: inline-block;
-	width: 180px;
-	height: 180px;
-	margin: 10px;
+  position: relative;
+  display: inline-block;
+  width: 27vmin;
+  height: 27vmin;
+  margin: 1.5vmin;
 }
 
 .board-active {
-	box-shadow: 0 0 5px 3px #333;
+  box-shadow: 0 0 5px 3px #333;
 }
 
 .board-win-x {
-	opacity: 0.5;
+  opacity: 0.5;
 }
 
 .board-win-x:after,.board-win-y:after, .board-win-tie:after {
-	content: '';
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	opacity: 0.5;
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0.5;
 }
 .board-win-x:after {
-	background-color: red;
+  background-color: red;
 }
 .board-win-y:after {
-	background-color: blue;
+  background-color: blue;
 }
 .board-win-tie:after {
-	background-color: black;
+  background-color: black;
 }
 
 .cell {
-	float: left;
-	width: 60px;
-	height: 60px;
-	background: white;
-	border: 1px solid #999;
-	margin: 0;
+  float: left;
+  width: 9vmin;
+  height: 9vmin;
+  background: white;
+  border: 1px solid #999;
+  margin: 0;
 }
 
 .state-x {
-	background: red;
+  background: red;
 }
 
 .state-y {
-	background: blue;
+  background: blue;
 }
 
 .gameover {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: rgba(0,0,0,0.8);
-	z-index: 1;
-	white-space: nowrap;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 1;
+  white-space: nowrap;
 }
 
 .gameover span {
-	color: white;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-family: Verdana;
-	font-size: 200px;
-	text-transform: uppercase;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: Verdana;
+  font-size: 200px;
+  text-transform: uppercase;
+}
+
+.debug {
+  display: none;
 }
