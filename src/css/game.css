@@ -2,12 +2,15 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: Verdana;
+  color: #444;
+}
+
 h1 {
   text-align: center;
-  color: #777;
-  font-family: Verdana;
   font-size: 6vmin;
-  margin: 0;
+  margin: -1vmin 0;
   text-transform: uppercase;
 }
 
@@ -103,4 +106,9 @@ h1 {
 
 .debug {
   display: none;
+}
+
+.info {
+  margin: -1vmin 1.5vmin 0;
+  font-size: 2.2vmin;
 }

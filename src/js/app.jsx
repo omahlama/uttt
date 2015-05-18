@@ -69,6 +69,7 @@ var GameBoard = React.createClass({
           }
           <div className="debug">{this.state.value}</div>
           <div className="debug">{this.state.combo && this.state.combo.join(" -> ")}</div>
+          <div className="info">Try to win on 5 boards. The next board is selected based on where you click.</div>
       </div>
     );
   }
